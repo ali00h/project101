@@ -64,7 +64,7 @@
         },
         mounted () {
             axios
-                .get('http://localhost:8080')
+                .get('<?php echo $_SERVER['WEBSERVICE_BASE_URL']; ?>')
                 .then(response => {
                     this.list = response.data
                 })

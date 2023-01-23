@@ -2,15 +2,15 @@ version: "3"
 services:
   php:
     image: docker.arvancloud.ir/trafex/php-nginx:3.0.0
-    container_name: project101-frontend-guests
+    container_name: project101-frontend-serverstatus
     restart: always
     ports:
-      - "8082:8080"
+      - "8083:8080"
     networks:
       - project101network
     environment:
       TZ: Asia/Tehran
-      WEBSERVICE_BASE_URL: http://localhost:8080
+      WEBSERVICE_BASE_URL: http://localhost:8080/serverstatus.php
     volumes:
       - type: 'bind'
         source: './code'
