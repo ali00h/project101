@@ -2,6 +2,7 @@ version: "3"
 services:
   php:
     build: .
+    image: "ali00h/demo:project101-backend-php-v1"
     container_name: project101-backend-php
     restart: always
     ports:

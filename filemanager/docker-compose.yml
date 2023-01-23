@@ -2,6 +2,7 @@ version: "3"
 services:
   php:
     build: .
+    image: "ali00h/demo:project101-filemanager-php-v1"
     container_name: project101-filemanager-php
     restart: always
     ports:
