@@ -1,0 +1,63 @@
+version: "3"
+services:
+  php:
+    build: .
+    container_name: project101-backend-php
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - project101network
+    environment:
+      MYSQL_USERNAME: project101_user
+      MYSQL_PASSWORD: Mn123456
+      MYSQL_DATABASE: project101
+      MYSQL_HOST: project101-backend-mariadb
+  mariadb:
+    image: mariadb:10.3
+    container_name: project101-backend-mariadb
+    restart: always
+    networks:
+      - project101network
+    expose:
+      - "3306"
+    environment:
+      MARIADB_DATABASE: project101
+      MARIADB_USER: project101_user
+      MARIADB_PASSWORD: Mn123456
+      MARIADB_ROOT_PASSWORD: Mn123456
+      INNODB_FILE_PER_TABLE: 1
+      TZ: Asia/Tehran
+    volumes:
+      - type: 'bind'
+        source: project101_mysql_data
+        target: '/var/lib/mysql'
+      - type: 'bind'
+        source: '/etc/localtime'
+        target: '/etc/localtime:ro'
+      - type: 'bind'
+        source: '/etc/timezone'
+        target: '/etc/timezone:ro'
+
+  phpmyadmin:
+    image: phpmyadmin:5.0
+    container_name: project101-backend-phpmyadmin
+    restart: always
+    ports:
+      - 8091:80
+    networks:
+      - project101network
+    environment:
+      PMA_HOST: project101-backend-mariadb
+      TZ: Asia/Tehran
+    volumes:
+      - type: 'bind'
+        source: '/etc/localtime'
+        target: '/etc/localtime:ro'
+      - type: 'bind'
+        source: '/etc/timezone'
+        target: '/etc/timezone:ro'
+
+networks:
+  project101network:
+    driver: bridge
